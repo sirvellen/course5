@@ -21,6 +21,9 @@ class CreateTasksTable extends Migration
             $table->double('urgency');
             $table->boolean('task_done')->nullable();
             $table->timestamps();
+
+            $table->foreign('list_id')->references('id')->on('task_lists')
+                ->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

@@ -22,19 +22,20 @@ Route::get('/test', function () {
 //    Route::middleware('auth:api')->patch('/{category}', 'CategoryController@update');
 //    Route::middleware('auth:api')->delete('/{category}', 'CategoryController@destroy');
 //});
-
-Route::prefix('/list')->group(function () {
-    Route::get('', 'TaskListController@index');
-    Route::post('/', 'TaskListController@store');
-    Route::prefix('/{list_id}')->group(function () {
-        Route::get('/', 'TaskListController@show');
-        Route::patch('/', 'TaskListController@update');
-        Route::delete('/', 'TaskListController@destroy');
-        Route::prefix('/{task}')->group(function() {
-            Route::get('/', 'TaskController@show');
-            Route::patch('/', 'TaskController@update');
-            Route::patch('/done', 'TaskController@done');
-            Route::delete('/', 'TaskController@destroy');
+Route::prefix('/{desk_id}')->group(function () {
+    Route::prefix('/list')->group(function () {
+        Route::get('', 'TaskListController@index');
+        Route::post('/', 'TaskListController@store');
+        Route::prefix('/{list_id}')->group(function () {
+            Route::get('', 'TaskListController@show');
+            Route::patch('', 'TaskListController@update');
+            Route::delete('', 'TaskListController@destroy');
+            Route::prefix('/{task}')->group(function () {
+                Route::get('/', 'TaskController@show');
+                Route::patch('/', 'TaskController@update');
+                Route::patch('/done', 'TaskController@done');
+                Route::delete('/', 'TaskController@destroy');
+            });
         });
     });
 });

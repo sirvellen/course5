@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\TaskListRequest;
+use App\Http\Requests\TaskListUpdateRequest;
 use App\TaskList;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class TaskListController extends Controller
 {
@@ -54,10 +56,10 @@ class TaskListController extends Controller
      * @param int $id
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\Response|object
      */
-    public function update(TaskList $tasklist, Request $request)
+    public function update(TaskList $tasklist, TaskListUpdateRequest $request)
     {
-        $tasklist->update($request->all());
-
+        $tasklist = DB::table('task_lists')->where('id', $request->list_id->toInt())
+            ->updateOrInsert(array_merge($tasklist->all()->toArray(), $request->toArray()));
         return response()->json($tasklist)->setStatusCode(202, 'Successful Edited');
     }
 

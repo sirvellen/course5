@@ -18,6 +18,8 @@ class CreateListsTable extends Migration
             $table->unsignedBigInteger('desk_id')->nullable();
             $table->text('list_name')->unique();
             $table->timestamps();
+
+
         });
     }
 
