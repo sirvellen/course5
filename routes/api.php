@@ -28,11 +28,11 @@ Route::prefix('/list')->group(function () {
     Route::post('/', 'TaskListController@store');
     Route::prefix('/{list_id}')->group(function () {
         Route::get('/', 'TaskListController@show');
-        Route::patch('/', 'TaskListController@edit');
+        Route::patch('/', 'TaskListController@update');
         Route::delete('/', 'TaskListController@destroy');
-        Route::prefix('/{task}')->group(function() { 
+        Route::prefix('/{task}')->group(function() {
             Route::get('/', 'TaskController@show');
-            Route::patch('/', 'TaskController@edit');
+            Route::patch('/', 'TaskController@update');
             Route::patch('/done', 'TaskController@done');
             Route::delete('/', 'TaskController@destroy');
         });
