@@ -58,8 +58,8 @@ class TaskListController extends Controller
      */
     public function update(TaskList $tasklist, TaskListUpdateRequest $request)
     {
-        $tasklist = DB::table('task_lists')->where('id', $request->list_id->toInt())
-            ->updateOrInsert(array_merge($tasklist->all()->toArray(), $request->toArray()));
+        $tasklist = DB::table('task_lists')->where('id', $request->list_id)
+            ->update(array_merge($tasklist->all()->toArray(), $request->toArray()));
         return response()->json($tasklist)->setStatusCode(202, 'Successful Edited');
     }
 
@@ -74,3 +74,4 @@ class TaskListController extends Controller
         //
     }
 }
+
