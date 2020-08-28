@@ -33,10 +33,10 @@ Route::prefix('/{desk_id}')->group(function () {
             Route::prefix('/task')->group(function () {
                 Route::get('/', 'TaskController@show');
                 Route::post('/', 'TaskController@store');
-                Route::patch('/{task}', 'TaskController@update');
-                Route::patch('/{task}/done', 'TaskController@done');
-                Route::patch('/{task}/undone', 'TaskController@undone');
-                Route::delete('/{task}', 'TaskController@destroy');
+                Route::patch('/{task_id}', 'TaskController@update');
+                Route::patch('/{task_id}/done', 'TaskController@done');
+                Route::patch('/{task_id}/undone', 'TaskController@undone');
+                Route::delete('/{task_id}', 'TaskController@destroy');
             });
         });
     });
