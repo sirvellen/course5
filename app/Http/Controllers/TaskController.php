@@ -79,13 +79,13 @@ class TaskController extends Controller
     }
 
     public function done(Request $request) {
-        $task = DB::table('task')->where('id', $request->task_id)->update(['task_done' => true]);
+        $task = DB::table('tasks')->where('id', $request->task_id)->update(['task_done' => true]);
 
         return response()->json($task)->setStatusCode(202, 'Successful marked');
     }
 
     public function undone(Request $request) {
-        $task = DB::table('task')->where('id', $request->task_id)->update(['task_done' => false]);
+        $task = DB::table('tasks')->where('id', $request->task_id)->update(['task_done' => false]);
 
         return response()->json($task)->setStatusCode(202, 'Successful marked');
     }
