@@ -38,11 +38,13 @@ class TaskController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\Response|object
      */
-    public function show($id)
+    public function show(Request $request)
     {
-        //
+        $data = Task::select()->where('id', $request->task_id)->get();
+
+        return response()->json($data)->setStatusCode(201, 'Successful Found');
     }
 
     /**
@@ -50,21 +52,40 @@ class TaskController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\Response|object
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $task = DB::table('tasks')->where('id', $request->task_id)
+            ->update([
+                'task_name' => $request->task_name,
+                'task_description' => $request->task_description,
+                ]);
+        return response()->json($task)->setStatusCode(202, 'Successful Edited');
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\Response|object
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        $task = DB::table('task')->where('id', $request->task_id)->delete();
+
+        return response()->json($task)->setStatusCode(202, 'Successful deleted');
+    }
+
+    public function done(Request $request) {
+        $task = DB::table('task')->where('id', $request->task_id)->update(['task_done' => true]);
+
+        return response()->json($task)->setStatusCode(202, 'Successful marked');
+    }
+
+    public function undone(Request $request) {
+        $task = DB::table('task')->where('id', $request->task_id)->update(['task_done' => false]);
+
+        return response()->json($task)->setStatusCode(202, 'Successful marked');
     }
 }
