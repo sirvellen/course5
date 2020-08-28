@@ -73,7 +73,7 @@ class TaskController extends Controller
      */
     public function destroy(Request $request)
     {
-        $task = DB::table('task')->where('id', $request->task_id)->delete();
+        $task = DB::table('tasks')->where('id', $request->task_id)->delete();
 
         return response()->json($task)->setStatusCode(202, 'Successful deleted');
     }
