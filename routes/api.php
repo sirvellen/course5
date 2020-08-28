@@ -25,16 +25,17 @@ Route::get('/test', function () {
 Route::prefix('/{desk_id}')->group(function () {
     Route::prefix('/list')->group(function () {
         Route::get('', 'TaskListController@index');
-        Route::post('/', 'TaskListController@store');
+        Route::post('', 'TaskListController@store');
         Route::prefix('/{list_id}')->group(function () {
             Route::get('', 'TaskListController@show');
             Route::patch('', 'TaskListController@update');
             Route::delete('', 'TaskListController@destroy');
-            Route::prefix('/{task}')->group(function () {
+            Route::prefix('/task')->group(function () {
                 Route::get('/', 'TaskController@show');
-                Route::patch('/', 'TaskController@update');
-                Route::patch('/done', 'TaskController@done');
-                Route::delete('/', 'TaskController@destroy');
+                Route::post('/', 'TaskController@store');
+                Route::patch('/{task}', 'TaskController@update');
+                Route::patch('/{task}/done', 'TaskController@done');
+                Route::delete('/{task}', 'TaskController@destroy');
             });
         });
     });

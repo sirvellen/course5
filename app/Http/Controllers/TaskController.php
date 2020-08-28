@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Task;
 use Illuminate\Http\Request;
 
 class TaskController extends Controller
@@ -13,18 +14,24 @@ class TaskController extends Controller
      */
     public function index()
     {
-        //
+        Task::all();
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\Response|object
      */
-    public function store(Request $request_list, Request $request)
+    public function store(Request $request)
     {
-        //
+        if ($task = Task::create([
+            'list_id' => $request->list_id,
+            'task_name' => $request->task_name,
+            'task_description' => $request->task_description,
+        ])) {
+            return response()->json($task)->setStatusCode(201, 'Successful Created');
+        } else return response()->json()->setStatusCode(400, 'Bad end');
     }
 
     /**
